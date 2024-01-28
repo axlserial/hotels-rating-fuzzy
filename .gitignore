@@ -1,0 +1,7 @@
+venv
+
+# Cualquier *.pyc
+*.pyc
+
+# cache
+__pycache__
