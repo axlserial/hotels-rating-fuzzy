@@ -79,11 +79,11 @@ rule1 = ctrl.Rule(
     facilities["careless"] & staff["poor"] & price["expensive"], rating["very poor"]
 )
 
-# Rule 2: if facilities is poor and price is regular then rating is poor
+# Rule 2: if facilities is careless and price is regular then rating is poor
 
-rule2 = ctrl.Rule(facilities["care"] & price["regular"], rating["poor"])
+rule2 = ctrl.Rule(facilities["careless"] & price["regular"], rating["poor"])
 
-# Rule 3: if facilities is careless and Staff is fair or good and price is cheap regular then rating is fair
+# Rule 3: if facilities is careless and Staff is fair or good and price is regular then rating is fair
 
 rule3 = ctrl.Rule(
     facilities["careless"] & (staff["fair"] | staff["good"]) & price["regular"],
@@ -111,10 +111,11 @@ rating_hotel = ctrl.ControlSystemSimulation(rating_ctrl)
 
 # --/ test 1 /--
 
-rating_hotel.input["facilities"] = 9.0
-rating_hotel.input["staff"] = 9.0
-rating_hotel.input["price"] = 1000.0
+rating_hotel.input["facilities"] = 2.5
+rating_hotel.input["staff"] = 8.5
+rating_hotel.input["price"] = 1200.0
 
 rating_hotel.compute()
 
 print(rating_hotel.output["rating"])
+rating.view(sim=rating_hotel)
