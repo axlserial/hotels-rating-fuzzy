@@ -76,28 +76,28 @@ rating["excellent"] = sk.trapmf(rating.universe, [9, 9.5, 10, 10.1])
 # Rule 1: if facilities is careless and Staff is poor and price is expensive then rating is very poor
 
 rule1 = ctrl.Rule(
-    facilities["careless"] and staff["poor"] and price["expensive"], rating["very poor"]
+    facilities["careless"] & staff["poor"] & price["expensive"], rating["very poor"]
 )
 
 # Rule 2: if facilities is poor and price is regular then rating is poor
 
-rule2 = ctrl.Rule(facilities["care"] and price["regular"], rating["poor"])
+rule2 = ctrl.Rule(facilities["care"] & price["regular"], rating["poor"])
 
 # Rule 3: if facilities is careless and Staff is fair or good and price is cheap regular then rating is fair
 
 rule3 = ctrl.Rule(
-    facilities["careless"] and staff["fair"] or staff["good"] and price["regular"],
+    facilities["careless"] & (staff["fair"] | staff["good"]) & price["regular"],
     rating["fair"],
 )
 
 # Rule 4: if Staff is excellent and price is cheap then rating is good
 
-rule4 = ctrl.Rule(staff["excellent"] and price["cheap"], rating["good"])
+rule4 = ctrl.Rule(staff["excellent"] & price["cheap"], rating["good"])
 
 # Rule 5: if facilities is excellent and Staff is excellent and price is cheap or regular then rating is excellent
 
 rule5 = ctrl.Rule(
-    facilities["excellent"] and staff["excellent"] and price["cheap"] or price["regular"],
+    facilities["excellent"] & staff["excellent"] & (price["cheap"] | price["regular"]),
     rating["excellent"],
 )
 
@@ -112,6 +112,8 @@ rating_hotel = ctrl.ControlSystemSimulation(rating_ctrl)
 # --/ test 1 /--
 
 rating_hotel.input["facilities"] = 9.0
+rating_hotel.input["staff"] = 9.0
+rating_hotel.input["price"] = 1000.0
 
 rating_hotel.compute()
 
